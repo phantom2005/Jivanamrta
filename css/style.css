@@ -4,6 +4,7 @@
     --secondary: #FF9933;
     --light: #F6FFF2;
     --dark: #263A4F;
+    
 }
 
 .btn {
@@ -11,6 +12,7 @@
     letter-spacing: 1px;
     font-weight: 700;
     transition: .5s;
+    
 }
 
 .btn-primary,
