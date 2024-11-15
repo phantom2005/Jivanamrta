@@ -146,7 +146,7 @@ async function sendMessage() {
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-recognition.lang = 'en-US';
+recognition.lang = 'Hi';
 recognition.interimResults = false;
 
 // Function to start speech recognition
@@ -171,7 +171,7 @@ recognition.onerror = function(event) {
 function speak(text) {
     const speech = new SpeechSynthesisUtterance();
     speech.text = text; // The text to speak
-    speech.lang = 'en-US'; // Set language
+    speech.lang = 'Hi'; // Set language
     speech.rate = 1; // Speed of speech
     window.speechSynthesis.speak(speech);
 }
