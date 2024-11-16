@@ -1,0 +1,55 @@
+import sqlite3,os,dotenv
+from flask import Flask,request, jsonify
+
+
+dotenv.load_dotenv()
+
+app = Flask(__name__)
+
+import google.generativeai as genai
+
+
+gem_api = os.getenv('gem_api')
+genai.configure(api_key=gem_api)
+
+
+
+model = genai.GenerativeModel(
+  model_name="gemini-1.5-flash",
+  # safety_settings = Adjust safety settings
+  # See https://ai.google.dev/gemini-api/docs/safety-settings
+  system_instruction="""you are an chatbot helper for an organic
+    farming website we connect organic farmer to the buyers and we
+      also promote farm tourism in india if relevant questio
+  n is asked reply accordingly else ask to ask a relevent questions reply in hindi""",
+)
+model.system_instruction=""" your name is dall-e tell them if they ask for it if a question is asked regarding a website assume its our website 
+    you are an chatbot helper for an organic farming website we connect 
+    organic farmer to the buyers and we also promote farm tourism in india 
+    if relevant question is asked reply accordingly else ask to ask a relevent
+      questions reply in hindi user is on the homepage of the website it contains 
+    this is the content of the page guide the user with the help of this
+    
+    website contains 6 links in the header 
+    Home for the home
+About for the about section of the website
+Service for searching for the service we are providing
+Product for searching for the organic products
+Blogs for blogs uploaded by tourists
+Tour for searching or creating the tour
+Contact for contacting the site owner
+
+    """
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message')
+    if not user_message:
+        return jsonify({'error': 'No message provided'}), 400
+    response = model.generate_content(user_message)
+    response = str(response.candidates[0].content.parts[0].text)
+    print(response)
+    return jsonify({'message': response})
+
+
+
+app.run()
