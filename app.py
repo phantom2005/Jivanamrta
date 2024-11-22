@@ -58,8 +58,8 @@ model = genai.GenerativeModel(
   # See https://ai.google.dev/gemini-api/docs/safety-settings
   system_instruction="""you are an chatbot helper for an organic
     farming website we connect organic farmer to the buyers and we
-      also promote farm tourism in india if relevant questio
-  n is asked reply accordingly else ask to ask a relevent questions reply in hindi""",
+      also promote farm tourism in india if relevant question
+      is asked reply accordingly else ask to ask a relevent questions reply in hindi""",
 )
 
 @app.route('/')
